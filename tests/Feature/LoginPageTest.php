@@ -33,6 +33,7 @@ class LoginPageTest extends TestCase
         $response = $this->actingAs($user)->get('/login');
         //pastikan redirect ke home
         $response->assertRedirect('/home');
+        $response = $this->get('/home');
         $response->assertSeeText("Dashboard");
         $response->assertSeeText("You are logged in!");
         $response->assertSeeText($user->name);
@@ -67,7 +68,6 @@ class LoginPageTest extends TestCase
 
         $response->assertRedirect('/login');
         $response->assertSessionHasErrors('username');
-        $response->assertSessionHasErrors('password');
         $this->assertTrue(session()->hasOldInput('username'));
         $this->assertFalse(session()->hasOldInput('password'));
         $this->assertGuest();
