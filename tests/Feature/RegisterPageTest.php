@@ -37,6 +37,7 @@ class RegisterPageTest extends TestCase
 
         //pastikan redirect ke home
         $response->assertRedirect('/home');
+        $response = $this->get('/home');
         $response->assertSeeText("Dashboard");
         $response->assertSeeText("You are logged in!");
         $response->assertSeeText("prima");
