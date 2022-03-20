@@ -16,6 +16,7 @@ class RegisterPageTest extends TestCase
      */
     public function test_username_ada_di_register()
     {
+        $this->seed();
         //buka halaman register
         $response = $this->get('/register');
         //pastikan halaman bisa dibuka
@@ -27,6 +28,7 @@ class RegisterPageTest extends TestCase
 
     public function test_new_user_can_register_by_username()
     {
+        $this->seed();
         $response = $this->from('/register')->post('/register', [
             'username' => 'ppa',
             'name' => 'prima',
