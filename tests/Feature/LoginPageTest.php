@@ -17,6 +17,7 @@ class LoginPageTest extends TestCase
      */
     public function test_username_ada_di_login()
     {
+        $this->seed();
         //buka halaman login
         $response = $this->get('/login');
         //pastikan halaman bisa dibuka
@@ -27,6 +28,7 @@ class LoginPageTest extends TestCase
 
     public function test_registered_user_can_login()
     {
+        $this->seed();
         //buat user baru pake factory
         $user = User::factory()->create()->first();
         //login as user tersebut
@@ -44,6 +46,7 @@ class LoginPageTest extends TestCase
 
     public function test_admin_baru_user_can_login()
     {
+        $this->seed();
         $response = $this->from('/login')->post('/login', [
             'username' => 'admin',
             'password' => 'password',
@@ -51,6 +54,7 @@ class LoginPageTest extends TestCase
 
         //pastikan redirect ke home
         $response->assertRedirect('/home');
+        $response->$this->get('/home');
         $response->assertSeeText("Dashboard");
         $response->assertSeeText("You are logged in!");
         $response->assertSeeText("Administrator Baru");
@@ -61,6 +65,7 @@ class LoginPageTest extends TestCase
 
     public function test_invalid_login()
     {
+        $this->seed();
         $response = $this->from('/login')->post('/login', [
             'username' => 'adminxxxx',
             'password' => 'passwordxx',
